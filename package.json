@@ -7,7 +7,7 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "npx eslint ./**/*.{js,ts,jsx,tsx} --quiet --fix",
-    "format": "prettier --write ./**/*.{js,ts,jsx,tsx}",
+    "format": "prettier --write ./**/*.{js,ts,jsx,tsx,css}",
     "prepare": "husky install"
   },
   "dependencies": {

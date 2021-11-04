@@ -1,10 +1,12 @@
 import '../styles/globals.css'
+import { Fragment } from 'react'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import Search from '@/components/Search'
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <Fragment>
       <Head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -21,8 +23,11 @@ function App({ Component, pageProps }: AppProps) {
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#317EFB" />
       </Head>
-      <Component {...pageProps} />
-    </>
+      <Fragment>
+        <Search />
+        <Component {...pageProps} />
+      </Fragment>
+    </Fragment>
   )
 }
 
