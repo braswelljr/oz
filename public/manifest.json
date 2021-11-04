@@ -1,0 +1,26 @@
+{
+  "name": "oz",
+  "short_name": "oz",
+  "orientation": "portrait",
+  "start_url": ".",
+  "theme_color": "#0088ff",
+  "background_color": "#ffffff00",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "./favicon.ico",
+      "sizes": "318x293",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "./icons/logo192.png",
+      "sizes": "318x293",
+      "type": "image/png"
+    },
+    {
+      "src": "./icons/apple-touch-icon.png",
+      "sizes": "318x293",
+      "type": "image/png"
+    }
+  ]
+}

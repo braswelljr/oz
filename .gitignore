@@ -35,3 +35,12 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# lockfiles
+yarn.lock
+package-lock.json
+
+# editor configs
+.idea
+.vscode
+.sublime

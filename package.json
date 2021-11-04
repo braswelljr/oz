@@ -5,18 +5,41 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "npx eslint ./**/*.{js,ts,jsx,tsx} --quiet --fix",
+    "format": "prettier --write ./**/*.{js,ts,jsx,tsx}",
+    "prepare": "husky install"
   },
   "dependencies": {
-    "next": "12.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
+    "autoprefixer": "^10.4.0",
+    "clsx": "^1.1.1",
+    "file-loader": "^6.2.0",
+    "framer-motion": "^5.2.0",
+    "husky": "^7.0.4",
+    "next": "^12.0.2",
+    "next-compose-plugins": "^2.2.1",
+    "next-pwa": "^5.4.0",
+    "postcss": "^8.3.11",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
+    "swiper": "^7.2.0",
+    "swr": "^1.0.1",
+    "tailwindcss": "^2.2.19",
+    "zustand": "^3.6.4"
   },
   "devDependencies": {
     "@types/node": "16.11.6",
     "@types/react": "17.0.34",
     "eslint": "7.32.0",
     "eslint-config-next": "12.0.2",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.26.1",
+    "prettier": "^2.4.1",
     "typescript": "4.4.4"
   }
 }
