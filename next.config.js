@@ -20,6 +20,9 @@ module.exports = withPlugins(
   ],
   {
     reactStrictMode: true,
+    images: {
+      domains: ['image.tmdb.org']
+    },
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
       if (!dev) {
         defaultLoaders.babel.options.cache = false

@@ -23,7 +23,8 @@ module.exports = {
         lime: color.lime,
         rose: color.rose,
         orange: color.orange,
-        amber: color.amber
+        amber: color.amber,
+        cyan: color.cyan
       },
       boxShadow: {},
       backgroundImage: {},

@@ -7,32 +7,38 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "parserOptions": {
+    "parser": "@typescript-eslint/parser",
     "ecmaFeatures": {
       "jsx": true
     },
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/no-unescaped-entities": "off",
     "react/jsx-props-no-spreading": "off",
     "max-len": "off",
     "prefer-promise-reject-errors": "off",
-    "react/jsx-filename-extension": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/anchor-is-valid": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
     "react/jsx-no-target-blank": "off",
     "mdx/no-unused-expressions": "off",
     "react/prop-types": "off",
     "no-return-assign": "off",
     "react/display-name": "off",
     "global-require": "off",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["warn"],
     "no-plusplus": "off",
     "prefer-const": "off",
-    "no-constant-condition":"off",
+    "no-constant-condition": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "no-nested-ternary": "off",
     "import/prefer-default-export": "off",
     "no-multi-spaces": "warn",
@@ -40,7 +46,9 @@
     "import/no-unresolved": "off",
     "indent": ["warn", 2],
     "prettier/prettier": [
-        "warn", {}, {
+      "warn",
+      {},
+      {
         "usePrettierrc": true
       }
     ]

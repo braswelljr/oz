@@ -17,6 +17,7 @@
   | week	    | View the trending list for the week. |
  */
 export const trending = 'https://api.themoviedb.org/3/trending'
+
 /**
  ## API Supported Image Sizes
   'https://image.tmdb.org/t/p/<image_type>'
