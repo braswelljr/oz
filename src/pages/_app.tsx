@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import { Fragment } from 'react'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import Search from '@/components/Search'
+import MainLayout from '@/layouts/MainLayout'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -19,13 +19,14 @@ function App({ Component, pageProps }: AppProps) {
         <title>OZ</title>
         <link rel="manifest" href="/manifest.json" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link href="/log192.png" rel="icon" type="image/png" />
+        <link href="/logo192.png" rel="icon" type="image/png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#317EFB" />
       </Head>
       <Fragment>
-        <Search />
-        <Component {...pageProps} />
+        <MainLayout>
+          <Component {...pageProps} />
+        </MainLayout>
       </Fragment>
     </Fragment>
   )
