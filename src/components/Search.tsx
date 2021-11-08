@@ -1,12 +1,17 @@
 import { useState, useRef, useEffect } from 'react'
 import { HiSearch } from 'react-icons/hi'
 import clsx from 'clsx'
+import useSWR from 'swr'
+import { search, image as imageUrl } from '@/configs/urls'
+import LinkWithRef from '@/components/LinkWithRef'
+import Image from 'next/image'
 
 const Search = () => {
   const searchInputRef = useRef<HTMLInputElement>(null)
   const searchCloseRef = useRef<HTMLButtonElement>(null)
   const [open, setOpen] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
+  const [searchResult, setSearchResult] = useState([])
 
   // set focus action
   useEffect(() => {
@@ -38,6 +43,27 @@ const Search = () => {
       window.removeEventListener('keydown', onKeyClose)
     }
   }, [])
+
+  const { data, error } = useSWR(
+    searchQuery.length > 0
+      ? [
+          `${search}/multi?api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${searchQuery}`,
+          searchQuery
+        ]
+      : '',
+    url => fetch(url).then(res => res.json()),
+    { shouldRetryOnError: true }
+  )
+
+  useEffect(() => {
+    data !== undefined ? setSearchResult(data?.results ?? []) : undefined
+  }, [data, error, searchQuery])
+
+  useEffect(() => {
+    if (searchQuery.length < 1) {
+      setSearchResult([])
+    }
+  }, [data, error, searchQuery])
 
   return (
     <>
@@ -95,6 +121,66 @@ const Search = () => {
           </button>
         </div>
       </div>
+      {!open && (
+        <>
+          <div
+            className={clsx('fixed inset-0 z-[5] bg-yellow-200 bg-opacity-40')}
+            onClick={() => {
+              setOpen(true)
+              setSearchQuery('')
+            }}
+          />
+          <div className="absolute inset-x-0 bg-gray-100 z-[6] top-0 p-5 pt-20">
+            {Array.isArray(searchResult) && searchResult?.length > 0 ? (
+              <div
+                className={clsx(
+                  'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:px-10 lg:px-20 xl:px-30 overflow-y-auto'
+                )}
+              >
+                {searchResult.map((card: any, i: number) => (
+                  <LinkWithRef
+                    href={'/'}
+                    className={clsx(
+                      'flex space-x-2 bg-yellow-100 rounded-md overflow-hidden shadow-sm'
+                    )}
+                    key={i}
+                  >
+                    <div className="relative w-28 h-36">
+                      <Image
+                        src={
+                          `${imageUrl}/original/${card?.poster_path}`
+                          // `${imageUrl}/w780/${card?.poster_path}`
+                        }
+                        alt={card?.title ?? card?.name ?? card?.original_title}
+                        layout="fill"
+                        objectFit="cover"
+                        className="relative"
+                      />
+                    </div>
+                    <div className="flex flex-col justify-between py-2">
+                      <div className="space-y-2 text-sm">
+                        <h2 className="font-bold text-gray-700">
+                          {card?.title ?? card?.name ?? card?.original_title}
+                        </h2>
+                        <div className="text-xs">
+                          {card?.release_date ?? card?.first_air_date ?? ''}
+                        </div>
+                      </div>
+                      <div className="">
+                        <span className="inline px-1 text-xs text-gray-600 bg-yellow-200 rounded-full">
+                          {card?.media_type ?? ''}
+                        </span>
+                      </div>
+                    </div>
+                  </LinkWithRef>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center">No results Found</div>
+            )}
+          </div>
+        </>
+      )}
     </>
   )
 }

@@ -42,3 +42,21 @@ export const image = 'https://image.tmdb.org/t/p'
  https://api.themoviedb.org/3/movie/<movie_id>
  */
 export const movie = 'https://api.themoviedb.org/3/movie'
+
+/**
+ * Search
+ * https://api.themoviedb.org/3/search/<search_type>
+ *
+ *
+ | Type         | Description                                                              |
+ |:------------:|:------------------------------------------------------------------------:|
+ | multi        | Search multiple models in a single request. Multi search currently
+ |              | supports searching for movies, tv shows and people in a single request.  |
+ | collection   | Search for collections.                                                  |
+ | company      | Search for companies.                                                    |
+ | keyword      | Search for keywords.                                                     |
+ | movie        | Search for Movies                                                        |
+ | tv           | Search for TV Shows                                                      |
+ | person       | Search for People                                                        |
+ */
+export const search = 'https://api.themoviedb.org/3/search'

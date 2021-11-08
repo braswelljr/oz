@@ -1,27 +1,11 @@
-import { useState, forwardRef, ReactNode } from 'react'
+import { useState } from 'react'
 import clsx from 'clsx'
-import Link, { LinkProps } from 'next/link'
 import { IoMdFilm } from 'react-icons/io'
 import { GoHome } from 'react-icons/go'
 import { RiMovie2Line } from 'react-icons/ri'
 import { MdOndemandVideo } from 'react-icons/md'
 import { HiMenu } from 'react-icons/hi'
-
-type Props = {
-  children: ReactNode
-  className?: string | undefined
-  href?: string | { pathname: string; query: { slug: string } } | undefined
-} & LinkProps
-
-const MenuTab = forwardRef<HTMLAnchorElement, Props>(
-  ({ children, className, href }, ref) => (
-    <Link href={href} passHref>
-      <a ref={ref} className={className}>
-        {children}
-      </a>
-    </Link>
-  )
-)
+import LinkWithRef from '@/components/LinkWithRef'
 
 const Navbar = () => {
   const [x, setX] = useState(false)
@@ -62,9 +46,9 @@ const Navbar = () => {
       >
         <div className="flex flex-col items-center justify-start space-y-12">
           {pages.map((tab: any, i: number) => (
-            <MenuTab key={i} href={tab?.href}>
+            <LinkWithRef key={i} href={tab?.href}>
               {tab?.icon}
-            </MenuTab>
+            </LinkWithRef>
           ))}
         </div>
       </nav>

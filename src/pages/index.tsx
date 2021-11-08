@@ -36,8 +36,10 @@ const Home = () => {
 
   if (trends.length <= 0 || !Array.isArray(trends)) {
     return (
-      <main>
-        <div className="">Not found</div>
+      <main className="grid min-h-screen bg-yellow-400 place-items-center">
+        <div
+          className={clsx('h-20 w-20 bg-gray-800 rounded-full animate-ping')}
+        />
       </main>
     )
   }
