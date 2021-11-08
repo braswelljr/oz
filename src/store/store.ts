@@ -2,14 +2,14 @@ import create, { SetState } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
 type State = {
-  trends: []
-  setTrends: (state: []) => void
+  trends: any[]
+  setTrends: (state: any[]) => void
 }
 
 const useStore = create<State>(
   devtools((set: SetState<State>) => ({
     trends: [],
-    setTrends: (state: []) => set({ trends: state })
+    setTrends: (state: any[]) => set({ trends: state })
   }))
 )
 

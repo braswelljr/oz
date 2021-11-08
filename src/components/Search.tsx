@@ -10,7 +10,7 @@ const Search = () => {
 
   // set focus action
   useEffect(() => {
-    if (open === false) searchInputRef?.current?.focus()
+    if (!open) searchInputRef?.current?.focus()
     function onKeyDown(e: KeyboardEvent) {
       if (e.key !== '/') {
         return
@@ -27,7 +27,7 @@ const Search = () => {
 
   useEffect(() => {
     function onKeyClose(e: KeyboardEvent) {
-      if (e.which !== 27) {
+      if (e.key !== 'Escape') {
         return
       }
       e.preventDefault()

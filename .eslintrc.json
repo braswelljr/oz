@@ -45,6 +45,7 @@
     "eslint-disable-next-line": "off",
     "import/no-unresolved": "off",
     "indent": ["warn", 2],
+    "@typescript-eslint/no-explicit-any": "off",
     "prettier/prettier": [
       "warn",
       {},

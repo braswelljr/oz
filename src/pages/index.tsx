@@ -76,17 +76,21 @@ const Home = () => {
                   />
                   <div className="absolute inset-0 bg-gray-700 bg-opacity-60 z-[1] grid">
                     <div className="w-auto max-w-3xl px-6 mx-auto -mb-32 xl:max-w-5xl place-self-center">
-                      <h1 className="text-2xl font-black text-yellow-500 md:text-4xl">
-                        {trend.title ?? trend.name ?? trend.original_title}
-                      </h1>
-                      <p className="mt-3 text-lg font-semibold text-gray-100 md:text-xl">
+                      <div className={clsx('')}>
+                        <h1 className="text-2xl font-black text-yellow-500 md:text-4xl">
+                          <span className={clsx('')}>
+                            {trend.title ?? trend.name ?? trend.original_title}
+                          </span>{' '}
+                          <span className="inline-flex items-center px-4 text-sm text-white bg-amber-700 bg-opacity-80 rounded-2xl">
+                            <HiStar className="w-auto h-4 text-yellow-300" />
+                            <h4 className="">{trend.vote_average}</h4>
+                          </span>
+                        </h1>
+                      </div>
+                      <p className="mt-3 text-lg font-semibold text-gray-100 line-clamp-5 md:text-xl">
                         {trend?.overview}
                       </p>
                     </div>
-                  </div>
-                  <div className="absolute flex bg-amber-700 bg-opacity-80 px-4 rounded-2xl items-center left-5 right-5 sm:left-auto bottom-20 text-white sm:right-10 z-[2]">
-                    <HiStar className="w-auto h-4 text-yellow-300" />
-                    <h4 className="">{trend.vote_average}</h4>
                   </div>
                 </div>
               </SwiperSlide>
