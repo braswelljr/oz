@@ -1,10 +1,14 @@
 import { useState, useRef, useEffect } from 'react'
-import { HiSearch } from 'react-icons/hi'
+import { HiOfficeBuilding, HiSearch } from 'react-icons/hi'
 import clsx from 'clsx'
 import useSWR from 'swr'
 import { search, image as imageUrl } from '@/configs/urls'
 import LinkWithRef from '@/components/LinkWithRef'
 import Image from 'next/image'
+import Tabs from '@/components/Tabs'
+import { GoGlobe } from 'react-icons/go'
+import { MdOndemandVideo } from 'react-icons/md'
+import { IoIosPeople } from 'react-icons/io'
 
 const Search = () => {
   const searchInputRef = useRef<HTMLInputElement>(null)
@@ -12,6 +16,7 @@ const Search = () => {
   const [open, setOpen] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResult, setSearchResult] = useState([])
+  const [mediaType, setMediaType] = useState('multi')
 
   // set focus action
   useEffect(() => {
@@ -47,8 +52,9 @@ const Search = () => {
   const { data, error } = useSWR(
     searchQuery.length > 0
       ? [
-          `${search}/multi?api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${searchQuery}`,
-          searchQuery
+          `${search}/${mediaType}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${searchQuery}`,
+          searchQuery,
+          mediaType
         ]
       : '',
     url => fetch(url).then(res => res.json()),
@@ -60,9 +66,7 @@ const Search = () => {
   }, [data, error, searchQuery])
 
   useEffect(() => {
-    if (searchQuery.length < 1) {
-      setSearchResult([])
-    }
+    if (searchQuery.length < 1) setSearchResult([])
   }, [data, error, searchQuery])
 
   return (
@@ -111,7 +115,7 @@ const Search = () => {
           <button
             ref={searchCloseRef}
             type="button"
-            className="relative p-1 -ml-6 text-xs font-black text-gray-900 bg-yellow-200 rounded focus:outline-none"
+            className="relative p-1 -ml-6 text-xs font-black text-white bg-gray-900 rounded focus:outline-none"
             onClick={() => {
               setSearchQuery('')
               setOpen(true)
@@ -130,11 +134,47 @@ const Search = () => {
               setSearchQuery('')
             }}
           />
-          <div className="absolute inset-x-0 bg-gray-100 z-[6] top-0 p-5 pt-20">
+          <div className="absolute inset-x-0 md:px-10 lg:px-20 xl:px-30 min-h-[60vh] bg-gray-100 z-[6] space-y-4 top-0 p-5 pt-20">
+            <div className="max-w-4xl mx-auto">
+              <Tabs
+                tabs={{
+                  multi: (
+                    <div className="flex items-center justify-center space-x-2">
+                      <GoGlobe className="w-auto h-5" />
+                      <span className="hidden md:block">All</span>
+                    </div>
+                  ),
+                  tv: (
+                    <div className="flex items-center justify-center space-x-2">
+                      <MdOndemandVideo className="w-auto h-5" />
+                      <span className="hidden md:block">TV Series</span>
+                    </div>
+                  ),
+                  company: (
+                    <div className="flex items-center justify-center space-x-2">
+                      <HiOfficeBuilding className="w-auto h-5" />
+                      <span className="hidden md:block">Company</span>
+                    </div>
+                  ),
+                  person: (
+                    <div className="flex items-center justify-center space-x-2">
+                      <IoIosPeople className="w-auto h-5" />
+                      <span className="hidden md:block">Celebs</span>
+                    </div>
+                  )
+                }}
+                selected={mediaType}
+                onChange={setMediaType}
+                itemClassName={{
+                  container: 'bg-gray-900 text-sm rounded',
+                  notSelected: 'text-gray-900'
+                }}
+              />
+            </div>
             {Array.isArray(searchResult) && searchResult?.length > 0 ? (
               <div
                 className={clsx(
-                  'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:px-10 lg:px-20 xl:px-30 overflow-y-auto'
+                  'grid grid-cols-1 gap-5 md:px-10 lg:px-20 xl:px-30 overflow-y-auto'
                 )}
               >
                 {searchResult.map((card: any, i: number) => (
@@ -145,7 +185,7 @@ const Search = () => {
                     )}
                     key={i}
                   >
-                    <div className="relative w-28 h-36">
+                    <div className="relative w-24 h-36">
                       <Image
                         src={
                           `${imageUrl}/original/${card?.poster_path}`
@@ -167,16 +207,20 @@ const Search = () => {
                         </div>
                       </div>
                       <div className="">
-                        <span className="inline px-1 text-xs text-gray-600 bg-yellow-200 rounded-full">
-                          {card?.media_type ?? ''}
-                        </span>
+                        {card?.media_type !== undefined && (
+                          <span className="inline px-1 text-xs text-gray-600 bg-yellow-200 rounded-full">
+                            {card?.media_type}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </LinkWithRef>
                 ))}
               </div>
             ) : (
-              <div className="text-center">No results Found</div>
+              <div className="min-h-[40vh] flex items-center">
+                <div className="w-full text-center">No results Found</div>
+              </div>
             )}
           </div>
         </>

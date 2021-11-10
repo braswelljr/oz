@@ -13,6 +13,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Navigation, Autoplay } from 'swiper'
+import Tabs from '@/components/Tabs'
 
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation])
