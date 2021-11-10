@@ -63,9 +63,6 @@ const Search = () => {
 
   useEffect(() => {
     data !== undefined ? setSearchResult(data?.results ?? []) : undefined
-  }, [data, error, searchQuery])
-
-  useEffect(() => {
     if (searchQuery.length < 1) setSearchResult([])
   }, [data, error, searchQuery])
 
