@@ -13,7 +13,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Navigation, Autoplay } from 'swiper'
-import { MovieProps } from '@/components/MovieCard'
+import MovieCard, { MovieProps } from '@/components/MovieCard'
 
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation])
@@ -22,10 +22,6 @@ const Home = () => {
   const [page, setPage] = useState(1)
   const [trends, setTrends] = useStore(
     state => [state.trends, state.setTrends],
-    shallow
-  )
-  const [popular, setPopular] = useStore(
-    state => [state.popular, state.setPopular],
     shallow
   )
   const [isMobile, setIsMobile] = useState('desktop')
@@ -51,12 +47,7 @@ const Home = () => {
   )
   if (!trendError && trendData !== undefined) {
     setTrends(trendData.results)
-    setPopular(trendData.results)
   }
-
-  useEffect(() => {
-    if (!trendError && trendData !== undefined) setPopular(trendData.results)
-  }, [page])
 
   // error
   if (trends.length <= 0 || !Array.isArray(trends)) {
@@ -123,96 +114,81 @@ const Home = () => {
             ))}
         </Swiper>
       </header>
-      <main className={clsx('py-5')}>
+      <main className={clsx('py-10')}>
         {/* Popular section */}
-        <section className="relative">
-          <h3 className="mx-4 text-lg font-bold text-gray-600">Popular</h3>
-          <span
-            ref={popPrevRef}
-            className={clsx(
-              'absolute cursor-pointer transform translate-y-28 left-0 z-[3] grid w-8 h-8 bg-gray-400 rounded-full place-items-center',
-              { hidden: isMobile === 'phone' }
-            )}
-          >
-            <HiChevronLeft className={clsx('h-5 w-auto')} />
-          </span>
-          <span
-            ref={popNextRef}
-            className={clsx(
-              'absolute cursor-pointer transform translate-y-28 right-0 z-[3] grid w-8 h-8 bg-gray-400 rounded-full place-items-center',
-              { hidden: isMobile === 'phone' }
-            )}
-          >
-            <HiChevronRight className={clsx('h-5 w-auto')} />
-          </span>
-          <div className={clsx('')}>
-            <Swiper
-              initialSlide={2}
-              spaceBetween={0}
-              onSnapIndexChange={() => null}
-              slidesPerView={4}
-              speed={300}
-              navigation={{
-                prevEl: popPrevRef.current,
-                nextEl: popNextRef.current
-              }}
-              onInit={(swiper: any) => {
-                swiper.params.navigation.prevEl = popPrevRef.current
-                swiper.params.navigation.nextEl = popNextRef.current
-              }}
-              breakpoints={{
-                320: {
-                  slidesPerView: 2
-                },
-                // when window width is >= 480px
-                425: {
-                  slidesPerView: 3
-                },
-                // when window width is >= 640px
-                640: {
-                  slidesPerView: 4
-                },
-                720: {
-                  slidesPerView: 5
-                },
-                1024: {
-                  slidesPerView: 7
-                },
-                1440: {
-                  slidesPerView: 9
-                }
-              }}
-            >
-              {Array.isArray(popular) &&
-                popular.length > 0 &&
-                popular.map((movie: MovieProps, id: number) => (
-                  <SwiperSlide key={movie?.id}>
-                    <div
-                      className={clsx(
-                        'overflow-hidden rounded-md shadow mr-3',
-                        id == 0 && 'ml-3'
-                      )}
-                      key={movie?.id}
-                    >
-                      <div className="relative w-full h-60">
-                        <Image
-                          src={`${imageUrl}/original/${movie?.poster_path}`}
-                          alt={movie?.name ?? movie?.title}
-                          layout="fill"
-                          objectFit="cover"
-                          className="absolute top-0 left-0 object-cover w-full h-full"
-                        />
-                      </div>
-                      <div className="px-1 py-2 bg-yellow-100">
-                        <h3 className="text-sm font-black line-clamp-1">
-                          {movie?.name ?? movie?.title}
-                        </h3>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-            </Swiper>
-          </div>
+        <section className="py-7">
+          <h3 className="mx-4 text-lg font-black text-gray-600 lg:text-xl">
+            Popular
+          </h3>
+          <section className="py-3">
+            <div className="relative">
+              <div className={clsx('relative')}>
+                <span
+                  ref={popPrevRef}
+                  className={clsx(
+                    'absolute cursor-pointer transform translate-y-28 left-0 z-[3] grid w-8 h-8 bg-gray-400 rounded-full place-items-center',
+                    { hidden: isMobile === 'phone' }
+                  )}
+                >
+                  <HiChevronLeft className={clsx('h-5 w-auto')} />
+                </span>
+                <span
+                  ref={popNextRef}
+                  className={clsx(
+                    'absolute cursor-pointer transform translate-y-28 right-0 z-[3] grid w-8 h-8 bg-gray-400 rounded-full place-items-center',
+                    { hidden: isMobile === 'phone' }
+                  )}
+                >
+                  <HiChevronRight className={clsx('h-5 w-auto')} />
+                </span>
+                <Swiper
+                  initialSlide={2}
+                  spaceBetween={0}
+                  onSnapIndexChange={() => null}
+                  slidesPerView={4}
+                  speed={300}
+                  navigation={{
+                    prevEl: popPrevRef.current,
+                    nextEl: popNextRef.current
+                  }}
+                  onInit={(swiper: any) => {
+                    swiper.params.navigation.prevEl = popPrevRef.current
+                    swiper.params.navigation.nextEl = popNextRef.current
+                  }}
+                  breakpoints={{
+                    320: {
+                      slidesPerView: 2
+                    },
+                    // when window width is >= 480px
+                    425: {
+                      slidesPerView: 3
+                    },
+                    // when window width is >= 640px
+                    640: {
+                      slidesPerView: 4
+                    },
+                    720: {
+                      slidesPerView: 5
+                    },
+                    1024: {
+                      slidesPerView: 7
+                    },
+                    1440: {
+                      slidesPerView: 9
+                    }
+                  }}
+                >
+                  {Array.isArray(trends) &&
+                    trends.length > 0 &&
+                    trends.map((movie: MovieProps, id: number) => (
+                      <SwiperSlide key={movie?.id}>
+                        <MovieCard id={id} movie={movie} />
+                      </SwiperSlide>
+                    ))}
+                </Swiper>
+              </div>
+            </div>
+          </section>
         </section>
       </main>
     </main>
