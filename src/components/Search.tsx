@@ -57,7 +57,7 @@ const Search = () => {
           mediaType
         ]
       : '',
-    url => fetch(url).then(res => res.json()),
+    (url: string) => fetch(url).then(res => res.json()),
     { shouldRetryOnError: true }
   )
 
