@@ -131,8 +131,8 @@ const Search = () => {
               setSearchQuery('')
             }}
           />
-          <div className="absolute inset-x-0 md:px-10 lg:px-20 xl:px-30 min-h-[60vh] bg-gray-100 z-[6] space-y-4 top-0 p-5 pt-20">
-            <div className="max-w-4xl mx-auto">
+          <div className="absolute inset-x-0 md:px-10 lg:px-20 xl:px-30 min-h-[30vh] bg-gray-100 z-[6] space-y-4 top-0 p-5 pt-20">
+            <div className="sticky inset-x-0 max-w-4xl mx-auto top-16 md:top-20 z-[3]">
               <Tabs
                 tabs={{
                   multi: (
@@ -164,6 +164,7 @@ const Search = () => {
                 onChange={setMediaType}
                 itemClassName={{
                   container: 'bg-gray-900 text-sm rounded',
+                  item: 'px-3 py-1 leading-5 font-semibold',
                   notSelected: 'text-gray-900'
                 }}
               />
@@ -178,20 +179,24 @@ const Search = () => {
                   <LinkWithRef
                     href={'/'}
                     className={clsx(
-                      'flex space-x-2 bg-yellow-100 rounded-md overflow-hidden shadow-sm'
+                      'flex space-x-2 bg-gray-50 rounded-md overflow-hidden shadow-sm'
                     )}
                     key={i}
                   >
-                    <div className="relative w-24 h-36">
+                    <div className="relative w-16 h-24">
                       <Image
-                        src={
-                          `${imageUrl}/original/${card?.poster_path}`
-                          // `${imageUrl}/w780/${card?.poster_path}`
-                        }
+                        src={`${imageUrl}/original/${
+                          ((mediaType === 'movie' ||
+                            mediaType === 'tv' ||
+                            card?.media_type === 'movie' ||
+                            card?.media_type === 'tv') &&
+                            card?.poster_path) ||
+                          (mediaType === 'person' && card?.profile_path)
+                        }`}
                         alt={card?.title ?? card?.name ?? card?.original_title}
                         layout="fill"
                         objectFit="cover"
-                        className="relative"
+                        className="relative w-24 h-36"
                       />
                     </div>
                     <div className="flex flex-col justify-between py-2">
@@ -200,7 +205,7 @@ const Search = () => {
                           {card?.title ?? card?.name ?? card?.original_title}
                         </h2>
                         <div className="text-xs">
-                          {card?.release_date ?? card?.first_air_date ?? ''}
+                          {card?.release_date ?? card?.first_air_date}
                         </div>
                       </div>
                       <div className="">
@@ -215,7 +220,7 @@ const Search = () => {
                 ))}
               </div>
             ) : (
-              <div className="min-h-[40vh] flex items-center">
+              <div className="min-h-[15vh] flex items-center">
                 <div className="w-full text-center">No results Found</div>
               </div>
             )}

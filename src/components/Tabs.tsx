@@ -7,6 +7,7 @@ type ItemProps = {
   onClick: () => void
   itemClassName?: {
     container?: string
+    item?: string
     isSelected?: string
     notSelected?: string
   }
@@ -24,12 +25,12 @@ const Item = ({ tab, isSelected, onClick, itemClassName }: ItemProps) => {
         type="button"
         onClick={onClick}
         className={clsx(
-          `block w-full relative z-10 px-5 py-1 leading-6 sm:text-xl font-semibold focus:outline-none transition-colors duration-300  rounded-lg ${
+          `block w-full relative z-10 focus:outline-none transition-colors duration-300 ${
             isSelected
               ? itemClassName?.isSelected ?? 'text-white'
               : itemClassName?.notSelected ?? 'text-yellow-300'
-          }`
-          // { 'text-white': isSelected, 'text-blue-600': !isSelected }
+          }`,
+          itemClassName?.item
         )}
       >
         {tab}
@@ -45,6 +46,7 @@ type TabProps = {
   className?: string
   itemClassName?: {
     container?: string
+    item?: string
     isSelected?: string
     notSelected?: string
   }
@@ -60,7 +62,7 @@ export default function Tabs({
   return (
     <AnimateSharedLayout>
       <ul
-        className={clsx('whitespace-nowrap grid rounded-lg', className, {})}
+        className={clsx('whitespace-nowrap grid', className)}
         style={{
           gridTemplateColumns: `repeat(${
             Array.isArray(tabs) ? tabs.length : Object.keys(tabs).length

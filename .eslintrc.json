@@ -34,6 +34,7 @@
     "global-require": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["warn"],
+    "@typescript-eslint/no-extra-semi": "off",
     "no-plusplus": "off",
     "prefer-const": "off",
     "no-constant-condition": "off",

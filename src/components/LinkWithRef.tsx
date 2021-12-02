@@ -3,11 +3,8 @@ import Link, { LinkProps } from 'next/link'
 
 type Props = {
   children: ReactNode
-  className?: string | undefined
-  href?:
-    | string
-    | { pathname: string; query: { slug: string } | undefined }
-    | undefined
+  className?: string
+  href?: string | { pathname: string; query?: { slug: string } }
 } & LinkProps
 
 const LinkWithRef = forwardRef<HTMLAnchorElement, Props>(

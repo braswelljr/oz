@@ -24,10 +24,10 @@ module.exports = withPlugins(
       domains: ['image.tmdb.org']
     },
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-      if (!dev) {
-        defaultLoaders.babel.options.cache = false
-      }
+      // clear cache
+      defaultLoaders.babel.options.cache = false
 
+      // resolve path
       config.resolve.modules.push(path.resolve(`./`))
 
       return config
