@@ -36,7 +36,7 @@ const Movie = ({ movie, id }: MovieProps) => {
       )}
       key={movie?.id}
     >
-      <div className="relative w-full h-60">
+      <div className="relative w-full bg-gray-800 h-60">
         <Image
           src={`${image}/original/${movie?.poster_path}`}
           alt={movie?.name ?? movie?.title}

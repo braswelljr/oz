@@ -103,7 +103,7 @@ const Search = () => {
             ref={searchInputRef}
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder={`Search movies and shows (Press “ESCAPE” to quit)`}
+            placeholder={`Search movies, tv shows and actors (Press “ESCAPE” to quit)`}
             className={clsx(
               'w-full py-4 md:text-base text-sm leading-6 placeholder-gray-300 focus:outline-none focus:placeholder-gray-400',
               {}
@@ -132,93 +132,94 @@ const Search = () => {
             }}
           />
           <div className="absolute inset-x-0 md:px-10 lg:px-20 xl:px-30 min-h-[30vh] bg-gray-100 z-[6] space-y-4 top-0 p-5 pt-20">
-            <div className="sticky inset-x-0 max-w-4xl mx-auto top-16 md:top-20 z-[3]">
-              <Tabs
-                tabs={{
-                  multi: (
-                    <div className="flex items-center justify-center space-x-2">
-                      <GoGlobe className="w-auto h-5" />
-                      <span className="hidden md:block">All</span>
-                    </div>
-                  ),
-                  tv: (
-                    <div className="flex items-center justify-center space-x-2">
-                      <MdOndemandVideo className="w-auto h-5" />
-                      <span className="hidden md:block">TV Series</span>
-                    </div>
-                  ),
-                  company: (
-                    <div className="flex items-center justify-center space-x-2">
-                      <HiOfficeBuilding className="w-auto h-5" />
-                      <span className="hidden md:block">Company</span>
-                    </div>
-                  ),
-                  person: (
-                    <div className="flex items-center justify-center space-x-2">
-                      <IoIosPeople className="w-auto h-5" />
-                      <span className="hidden md:block">Celebs</span>
-                    </div>
-                  )
-                }}
-                selected={mediaType}
-                onChange={setMediaType}
-                itemClassName={{
-                  container: 'bg-gray-900 text-sm rounded',
-                  item: 'px-3 py-1 leading-5 font-semibold',
-                  notSelected: 'text-gray-900'
-                }}
-              />
-            </div>
             {Array.isArray(searchResult) && searchResult?.length > 0 ? (
-              <div
-                className={clsx(
-                  'grid grid-cols-1 gap-5 md:px-10 lg:px-20 xl:px-30 overflow-y-auto'
-                )}
-              >
-                {searchResult.map((card: any, i: number) => (
-                  <LinkWithRef
-                    href={'/'}
-                    className={clsx(
-                      'flex space-x-2 bg-gray-50 rounded-md overflow-hidden shadow-sm'
-                    )}
-                    key={i}
-                  >
-                    <div className="relative w-16 h-24">
-                      <Image
-                        src={`${imageUrl}/original/${
-                          ((mediaType === 'movie' ||
-                            mediaType === 'tv' ||
-                            card?.media_type === 'movie' ||
-                            card?.media_type === 'tv') &&
-                            card?.poster_path) ||
-                          (mediaType === 'person' && card?.profile_path)
-                        }`}
-                        alt={card?.title ?? card?.name ?? card?.original_title}
-                        layout="fill"
-                        objectFit="cover"
-                        className="relative w-24 h-36"
-                      />
-                    </div>
-                    <div className="flex flex-col justify-between py-2">
-                      <div className="space-y-2 text-sm">
-                        <h2 className="font-bold text-gray-700">
-                          {card?.title ?? card?.name ?? card?.original_title}
-                        </h2>
-                        <div className="text-xs">
-                          {card?.release_date ?? card?.first_air_date}
+              <>
+                <div className="sticky inset-x-0 max-w-4xl mx-auto bg-white top-12 md:top-20 z-[3]">
+                  <Tabs
+                    tabs={{
+                      multi: (
+                        <div className="flex items-center justify-center space-x-2">
+                          <GoGlobe className="w-auto h-5" />
+                          <span className="hidden md:block">All</span>
+                        </div>
+                      ),
+                      tv: (
+                        <div className="flex items-center justify-center space-x-2">
+                          <MdOndemandVideo className="w-auto h-5" />
+                          <span className="hidden md:block">TV Series</span>
+                        </div>
+                      ),
+                      company: (
+                        <div className="flex items-center justify-center space-x-2">
+                          <HiOfficeBuilding className="w-auto h-5" />
+                          <span className="hidden md:block">Company</span>
+                        </div>
+                      ),
+                      person: (
+                        <div className="flex items-center justify-center space-x-2">
+                          <IoIosPeople className="w-auto h-5" />
+                          <span className="hidden md:block">Celebs</span>
+                        </div>
+                      )
+                    }}
+                    selected={mediaType}
+                    onChange={setMediaType}
+                    itemClassName={{
+                      container: 'bg-gray-900 text-sm rounded',
+                      item: 'px-3 py-1 leading-5 font-semibold',
+                      notSelected: 'text-gray-900'
+                    }}
+                  />
+                </div>
+                <div
+                  className={clsx(
+                    'grid grid-cols-1 gap-5 md:px-10 lg:px-20 xl:px-30 overflow-y-auto'
+                  )}
+                >
+                  {searchResult.map((card: any, i: number) => (
+                    <LinkWithRef
+                      href={'/'}
+                      className={clsx(
+                        'flex space-x-2 bg-gray-50 rounded-md overflow-hidden shadow-sm'
+                      )}
+                      key={i}
+                    >
+                      <div className="relative w-16 h-24 bg-black">
+                        <Image
+                          src={`${imageUrl}/original/${
+                            card?.poster_path ??
+                            card?.poster_path ??
+                            card?.profile_path
+                          }`}
+                          alt={
+                            card?.title ?? card?.name ?? card?.original_title
+                          }
+                          layout="fill"
+                          objectFit="cover"
+                          className="relative w-24 h-36"
+                        />
+                      </div>
+                      <div className="flex flex-col justify-between py-2">
+                        <div className="space-y-2 text-sm">
+                          <h2 className="font-bold text-gray-700">
+                            {card?.title ?? card?.name ?? card?.original_title}
+                          </h2>
+                          <div className="text-xs">
+                            {card?.release_date ?? card?.first_air_date}
+                          </div>
+                        </div>
+                        <div className="">
+                          {card?.media_type !== undefined && (
+                            <span className="inline px-1 text-xs text-gray-600 bg-yellow-200 rounded-full">
+                              {card?.media_type}
+                            </span>
+                          )}
                         </div>
                       </div>
-                      <div className="">
-                        {card?.media_type !== undefined && (
-                          <span className="inline px-1 text-xs text-gray-600 bg-yellow-200 rounded-full">
-                            {card?.media_type}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </LinkWithRef>
-                ))}
-              </div>
+                    </LinkWithRef>
+                  ))}
+                </div>
+              </>
             ) : (
               <div className="min-h-[15vh] flex items-center">
                 <div className="w-full text-center">No results Found</div>

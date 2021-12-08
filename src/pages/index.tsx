@@ -123,24 +123,6 @@ const Home = () => {
           <section className="py-3">
             <div className="relative">
               <div className={clsx('relative')}>
-                <span
-                  ref={popPrevRef}
-                  className={clsx(
-                    'absolute cursor-pointer transform translate-y-28 left-0 z-[3] grid w-8 h-8 bg-gray-400 rounded-full place-items-center',
-                    { hidden: isMobile === 'phone' }
-                  )}
-                >
-                  <HiChevronLeft className={clsx('h-5 w-auto')} />
-                </span>
-                <span
-                  ref={popNextRef}
-                  className={clsx(
-                    'absolute cursor-pointer transform translate-y-28 right-0 z-[3] grid w-8 h-8 bg-gray-400 rounded-full place-items-center',
-                    { hidden: isMobile === 'phone' }
-                  )}
-                >
-                  <HiChevronRight className={clsx('h-5 w-auto')} />
-                </span>
                 <Swiper
                   initialSlide={2}
                   spaceBetween={0}
@@ -175,6 +157,9 @@ const Home = () => {
                     },
                     1440: {
                       slidesPerView: 9
+                    },
+                    1920: {
+                      slidesPerView: 11
                     }
                   }}
                 >

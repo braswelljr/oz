@@ -1,13 +1,13 @@
 import { forwardRef, ReactNode } from 'react'
 import Link, { LinkProps } from 'next/link'
 
-type Props = {
+export type LinkWithRefProps = {
   children: ReactNode
   className?: string
   href?: string | { pathname: string; query?: { slug: string } }
-} & LinkProps
+}
 
-const LinkWithRef = forwardRef<HTMLAnchorElement, Props>(
+const LinkWithRef = forwardRef<HTMLAnchorElement, LinkWithRefProps & LinkProps>(
   ({ children, className, href }, ref) => (
     <Link href={href} passHref>
       <a ref={ref} className={className}>
