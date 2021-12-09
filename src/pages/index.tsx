@@ -124,7 +124,7 @@ const Home = () => {
             <div className="relative">
               <div className={clsx('relative')}>
                 <Swiper
-                  initialSlide={2}
+                  initialSlide={0}
                   spaceBetween={0}
                   onSnapIndexChange={() => null}
                   slidesPerView={4}

@@ -60,3 +60,15 @@ export const movie = 'https://api.themoviedb.org/3/movie'
  | person       | Search for People                                                        |
  */
 export const search = 'https://api.themoviedb.org/3/search'
+
+/**
+ * Discover ( Movie | TV Shows)
+ * https://api.themoviedb.org/3/discover/<<type>>?api_key=<<api_key>>&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate
+ *
+ *
+ | Type        | Description            |
+ :------------:|:-----------------------|
+ | movie       | Discover movies        |
+ | tv          | Discover tv series     |
+ */
+export const discover = 'https://api.themoviedb.org/3/discover'

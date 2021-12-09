@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { GoHome } from 'react-icons/go'
 import { RiMovie2Line } from 'react-icons/ri'
 // import { MdOndemandVideo } from 'react-icons/md'
-import { HiMenu } from 'react-icons/hi'
+import { HiMenu, HiX } from 'react-icons/hi'
 import LinkWithRef from '@/components/LinkWithRef'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
@@ -38,12 +38,28 @@ const Navbar = () => {
       <button
         type="button"
         className={clsx(
-          'fixed top-3 left-4 text-white z-[5] bg-gray-800 bg-opacity-70 p-2 rounded-full transform transition-all duration-300',
-          { 'rotate-90': x }
+          'fixed top-3 left-4 text-white z-[5] bg-gray-800 overflow-hidden grid place-content-center grid-cols-1 grid-rows-1 h-7 w-7 bg-opacity-70 rounded transform transition-all duration-300'
         )}
         onClick={() => setX(!x)}
       >
-        <HiMenu className="w-auto h-7 " />
+        <HiX
+          className={clsx(
+            'w-auto h-6 transform translate-y-0.5 transition-all duration-300',
+            {
+              '-translate-x-10 scale-0': !x,
+              'translate-x-0.5': x
+            }
+          )}
+        />
+        <HiMenu
+          className={clsx(
+            'w-auto h-6 transform -translate-y-0.5 transition-all duration-300',
+            {
+              'translate-x-10': x,
+              'translate-x-0.5': !x
+            }
+          )}
+        />
       </button>
       <nav
         className={clsx(

@@ -72,7 +72,7 @@ const Search = () => {
         <div className="flex space-x-6 font-bold">
           <button
             type="button"
-            className="fixed top-3 right-4 text-white z-[5] bg-gray-800 bg-opacity-80 p-2 rounded-full transform transition-all duration-300"
+            className="fixed top-3 right-3 text-white z-[5] bg-gray-800 bg-opacity-80 p-1 rounded transform transition-all duration-300"
             onClick={() => setOpen(false)}
           >
             <HiSearch className="w-auto h-6" />
