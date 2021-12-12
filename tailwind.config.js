@@ -3,9 +3,8 @@ const color = require('tailwindcss/colors')
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  mode: 'jit',
-  purge: ['./src/**/*.{js,jsx,ts,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  //darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
       xs: '475px',
@@ -18,7 +17,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        gray: color.trueGray,
+        neutral: color.neutral,
         sky: color.sky,
         lime: color.lime,
         rose: color.rose,

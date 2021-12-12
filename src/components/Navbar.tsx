@@ -38,7 +38,7 @@ const Navbar = () => {
       <button
         type="button"
         className={clsx(
-          'fixed top-3 left-3 text-white z-[5] bg-gray-900 bg-opacity-80 overflow-hidden grid place-content-center grid-cols-1 grid-rows-1 h-7 w-7 rounded transform transition-all duration-300'
+          'fixed top-3 left-3 text-white z-[5] bg-neutral-900 bg-opacity-80 overflow-hidden grid place-content-center grid-cols-1 grid-rows-1 h-7 w-7 rounded transform transition-all duration-300'
         )}
         onClick={() => setX(!x)}
       >
@@ -63,7 +63,7 @@ const Navbar = () => {
       </button>
       <nav
         className={clsx(
-          'fixed inset-y-0 left-0 px-2 z-[3] pt-32 text-white bg-gray-800 bg-opacity-30  transform transition-all duration-300',
+          'fixed inset-y-0 left-0 px-2 z-[3] pt-32 text-white bg-neutral-800 bg-opacity-30  transform transition-all duration-300',
           { '-translate-x-full': !x }
         )}
       >
@@ -78,7 +78,7 @@ const Navbar = () => {
                   (router.pathname === tab?.href ||
                     router.pathname.split('/')[1] ===
                       tab?.href?.split('/')[1]) &&
-                    'text-gray-800'
+                    'text-neutral-800'
                 )}
               >
                 {(router.pathname === tab?.href ||

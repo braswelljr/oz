@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { HiOfficeBuilding, HiSearch } from 'react-icons/hi'
+import { HiSearch } from 'react-icons/hi'
 import clsx from 'clsx'
 import useSWR from 'swr'
 import { search, image as imageUrl } from '@/configs/urls'
@@ -36,6 +36,16 @@ const Search = () => {
   }, [open])
 
   useEffect(() => {
+    if (open === true) {
+      document.body.style.overflowY = 'auto'
+      document.body.style.height = '100%'
+    } else {
+      document.body.style.overflowY = 'hidden'
+      document.body.style.height = '100vh'
+    }
+  }, [open])
+
+  useEffect(() => {
     function onKeyClose(e: KeyboardEvent) {
       if (e.key !== 'Escape') {
         return
@@ -64,77 +74,68 @@ const Search = () => {
   useEffect(() => {
     data !== undefined ? setSearchResult(data?.results ?? []) : undefined
     if (searchQuery.length < 1) setSearchResult([])
-  }, [data, error, searchQuery])
+  }, [data, error, searchQuery, mediaType])
 
   return (
     <>
-      <nav className="fixed inset-x-0 top-0 flex justify-end items-center px-4 py-3 text-gray-400 bg-transparent z-[5] md:px-10 lg:px-20 xl:px-30">
+      <nav className="fixed inset-x-0 top-0 flex justify-end items-center px-4 py-3 text-neutral-400 bg-transparent z-[5] md:px-10 lg:px-20 xl:px-30">
         <div className="flex space-x-6 font-bold">
           <button
             type="button"
-            className="fixed top-3 right-3 text-white z-[5] bg-gray-800 bg-opacity-80 p-1 rounded transform transition-all duration-300"
+            className="fixed top-3 right-3 text-white z-[5] bg-neutral-800 bg-opacity-80 p-1 rounded transform transition-all duration-300"
             onClick={() => setOpen(false)}
           >
             <HiSearch className="w-auto h-6" />
           </button>
         </div>
       </nav>
-      <div>
-        <div
-          className={clsx(
-            'flex fixed inset-x-0 z-10 transform transition-all duration-200 bg-white shadow mx-auto rounded py-1 sm:px-6 lg:px-20 px-4',
-            {
-              'translate-y-0': !open,
-              '-translate-y-full': open
-            }
-          )}
+      <div
+        className={clsx(
+          'flex fixed inset-x-0 z-10 transform transition-all duration-200 bg-white shadow mx-auto rounded py-1 sm:px-6 lg:px-20 px-4',
+          {
+            'translate-y-0': !open,
+            '-translate-y-full': open
+          }
+        )}
+      >
+        <label
+          htmlFor="search-input"
+          className="flex items-center flex-none pr-3"
         >
-          <label
-            htmlFor="search-input"
-            className="flex items-center flex-none pr-3"
-          >
-            <span className="sr-only">Search movie</span>
-            <HiSearch className="w-auto h-5 text-gray-500 transition-colors duration-150 group-focus-within:text-gray-600" />
-          </label>
-          <input
-            type="text"
-            id="search-input"
-            autoComplete="off"
-            ref={searchInputRef}
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            placeholder={`Search movies, tv shows and actors (Press “ESCAPE” to quit)`}
-            className={clsx(
-              'w-full py-4 md:text-base text-sm leading-6 placeholder-gray-300 focus:outline-none focus:placeholder-gray-400',
-              {}
-            )}
-          />
-          <button
-            ref={searchCloseRef}
-            type="button"
-            className="relative p-1 -ml-6 text-xs font-black text-white bg-gray-900 rounded focus:outline-none"
-            onClick={() => {
-              setSearchQuery('')
-              setOpen(true)
-            }}
-          >
-            Esc
-          </button>
-        </div>
+          <span className="sr-only">Search movie</span>
+          <HiSearch className="w-auto h-5 text-neutral-500 transition-colors duration-150 group-focus-within:text-neutral-600" />
+        </label>
+        <input
+          type="text"
+          id="search-input"
+          autoComplete="off"
+          ref={searchInputRef}
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+          placeholder={`Search movies, tv shows and actors (Press “ESCAPE” to quit)`}
+          className={clsx(
+            'w-full py-4 md:text-base text-sm leading-6 placeholder-gray-300 focus:outline-none focus:placeholder-gray-400',
+            {}
+          )}
+        />
+        <button
+          ref={searchCloseRef}
+          type="button"
+          className="relative p-1 -ml-6 text-xs font-black text-white bg-neutral-900 rounded focus:outline-none"
+          onClick={() => {
+            setSearchQuery('')
+            setOpen(true)
+          }}
+        >
+          Esc
+        </button>
       </div>
       {!open && (
         <>
-          <div
-            className={clsx('fixed inset-0 z-[5] bg-yellow-200 bg-opacity-40')}
-            onClick={() => {
-              setOpen(true)
-              setSearchQuery('')
-            }}
-          />
-          <div className="absolute inset-x-0 md:px-10 lg:px-20 xl:px-30 min-h-[30vh] bg-gray-100 z-[6] space-y-4 top-0 p-5 pt-20">
+          <div className="fixed inset-0 md:px-10 lg:px-20 xl:px-30 min-h-[30vh] overflow-y-auto bg-neutral-100 z-[6] space-y-4 top-0 p-5 pt-28">
             {Array.isArray(searchResult) && searchResult?.length > 0 ? (
               <>
-                <div className="sticky inset-x-0 max-w-4xl mx-auto bg-white top-12 md:top-20 z-[3]">
+                <div className="fixed inset-x-0 max-w-4xl rounded mx-auto bg-white top-20 z-[3]">
                   <Tabs
                     tabs={{
                       multi: (
@@ -149,12 +150,6 @@ const Search = () => {
                           <span className="hidden md:block">TV Series</span>
                         </div>
                       ),
-                      company: (
-                        <div className="flex items-center justify-center space-x-2">
-                          <HiOfficeBuilding className="w-auto h-5" />
-                          <span className="hidden md:block">Company</span>
-                        </div>
-                      ),
                       person: (
                         <div className="flex items-center justify-center space-x-2">
                           <IoIosPeople className="w-auto h-5" />
@@ -165,22 +160,22 @@ const Search = () => {
                     selected={mediaType}
                     onChange={setMediaType}
                     itemClassName={{
-                      container: 'bg-gray-900 text-sm rounded',
+                      container: 'bg-neutral-900 text-sm rounded',
                       item: 'px-3 py-1 leading-5 font-semibold',
-                      notSelected: 'text-gray-900'
+                      notSelected: 'text-neutral-900'
                     }}
                   />
                 </div>
                 <div
                   className={clsx(
-                    'grid grid-cols-1 gap-5 md:px-10 lg:px-20 xl:px-30 overflow-y-auto'
+                    'space-y-5 relative md:px-10 lg:px-20 xl:px-30 overflow-y-auto'
                   )}
                 >
                   {searchResult.map((card: any, i: number) => (
                     <LinkWithRef
                       href={'/'}
                       className={clsx(
-                        'flex space-x-2 bg-gray-50 rounded-md overflow-hidden shadow-sm'
+                        'flex space-x-2 bg-neutral-50 rounded-md overflow-hidden shadow-sm'
                       )}
                       key={i}
                     >
@@ -201,7 +196,7 @@ const Search = () => {
                       </div>
                       <div className="flex flex-col justify-between py-2">
                         <div className="space-y-2 text-sm">
-                          <h2 className="font-bold text-gray-700">
+                          <h2 className="font-bold text-neutral-700">
                             {card?.title ?? card?.name ?? card?.original_title}
                           </h2>
                           <div className="text-xs">
@@ -210,7 +205,7 @@ const Search = () => {
                         </div>
                         <div className="">
                           {card?.media_type !== undefined && (
-                            <span className="inline px-1 text-xs text-gray-600 bg-yellow-200 rounded-full">
+                            <span className="inline px-1 text-xs text-neutral-600 bg-yellow-200 rounded-full">
                               {card?.media_type}
                             </span>
                           )}
@@ -221,9 +216,13 @@ const Search = () => {
                 </div>
               </>
             ) : (
-              <div className="min-h-[15vh] flex items-center">
-                <div className="w-full text-center">No results Found</div>
-              </div>
+              <div
+                className={clsx('fixed inset-0 z-[5] bg-opacity-40')}
+                onClick={() => {
+                  setOpen(true)
+                  setSearchQuery('')
+                }}
+              />
             )}
           </div>
         </>

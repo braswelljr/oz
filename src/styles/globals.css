@@ -10,12 +10,10 @@
   }
 }
 @layer utilities {
-  @responsive {
-    .scrollbar-hidden {
-      scrollbar-width: none;
-    }
-    .scrollbar-hidden::-webkit-scrollbar {
-      display: none;
-    }
+  .scrollbar-hidden {
+    scrollbar-width: none;
+  }
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
   }
 }

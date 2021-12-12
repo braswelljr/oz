@@ -1,4 +1,4 @@
-import { ReactChild, ReactChildren, Fragment } from 'react'
+import { ReactChild, ReactChildren } from 'react'
 import Search from '@/components/Search'
 import Navbar from '@/components/Navbar'
 
@@ -8,11 +8,11 @@ interface Props {
 
 const MainLayout = ({ children }: Props) => {
   return (
-    <Fragment>
+    <>
       <Search />
       <Navbar />
       {children}
-    </Fragment>
+    </>
   )
 }
 

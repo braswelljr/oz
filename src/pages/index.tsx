@@ -52,9 +52,9 @@ const Home = () => {
   // error
   if (trends.length <= 0 || !Array.isArray(trends)) {
     return (
-      <main className="grid min-h-screen bg-gray-900 place-items-center">
+      <main className="grid min-h-screen bg-neutral-900 place-items-center">
         <div
-          className={clsx('h-20 w-20 bg-gray-800 rounded-full animate-ping')}
+          className={clsx('h-20 w-20 bg-neutral-800 rounded-full animate-ping')}
         />
       </main>
     )
@@ -91,7 +91,7 @@ const Home = () => {
                     objectFit="cover"
                     className="relative"
                   />
-                  <div className="absolute inset-0 bg-gray-700 bg-opacity-60 z-[1] grid">
+                  <div className="absolute inset-0 bg-neutral-700 bg-opacity-60 z-[1] grid">
                     <div className="w-auto max-w-3xl px-6 mx-auto -mb-32 xl:max-w-5xl place-self-center">
                       <div className={clsx('')}>
                         <h1 className="text-2xl font-black text-yellow-500 md:text-4xl">
@@ -104,7 +104,7 @@ const Home = () => {
                           </span>
                         </h1>
                       </div>
-                      <p className="mt-3 text-lg font-semibold text-gray-100 line-clamp-5 md:text-xl">
+                      <p className="mt-3 text-lg font-semibold text-neutral-100 line-clamp-5 md:text-xl">
                         {trend?.overview}
                       </p>
                     </div>
@@ -117,7 +117,7 @@ const Home = () => {
       <main className={clsx('py-10')}>
         {/* Popular section */}
         <section className="py-7">
-          <h3 className="mx-4 text-lg font-black text-gray-600 lg:text-xl">
+          <h3 className="mx-4 text-lg font-black text-neutral-600 lg:text-xl">
             Popular
           </h3>
           <section className="py-3">
