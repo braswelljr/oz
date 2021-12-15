@@ -6,20 +6,14 @@
   "theme_color": "#0088ff",
   "background_color": "#ffffff00",
   "display": "standalone",
-  "icons": [
-    {
+  "icons": [{
       "src": "./favicon.ico",
-      "sizes": "318x293",
+      "sizes": "288x153",
       "type": "image/x-icon"
     },
     {
-      "src": "./icons/logo192.png",
-      "sizes": "318x293",
-      "type": "image/png"
-    },
-    {
-      "src": "./icons/apple-touch-icon.png",
-      "sizes": "318x293",
+      "src": "./oz.png",
+      "sizes": "288x153",
       "type": "image/png"
     }
   ]

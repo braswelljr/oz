@@ -27,19 +27,6 @@ module.exports = withPlugins(
       // clear cache
       defaultLoaders.babel.options.cache = false
 
-      config.module.rules.push({
-        test: /\.(jpe?g|png|svg|gif|ico|eot|ttf|woff|woff2|mp4|pdf|webp|txt)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              publicPath: '/_next',
-              name: 'static/media/[name].[hash].[ext]'
-            }
-          }
-        ]
-      })
-
       // resolve path
       config.resolve.modules.push(path.resolve(`./`))
 

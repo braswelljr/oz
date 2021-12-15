@@ -23,6 +23,7 @@
     "prefer-promise-reject-errors": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/role-supports-aria-props": "off",
     "no-use-before-define": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
     "react/jsx-no-target-blank": "off",
@@ -50,7 +51,7 @@
     "@typescript-eslint/no-extra-semi": "off",
     "@typescript-eslint/no-empty-function": "off",
     // next constraints
-    "@next/next/no-img-element": "warn",
+    "@next/next/no-img-element": "off",
     "prettier/prettier": [
       "warn",
       {},

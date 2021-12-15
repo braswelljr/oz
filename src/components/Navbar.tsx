@@ -78,7 +78,7 @@ const Navbar = () => {
                   (router.pathname === tab?.href ||
                     router.pathname.split('/')[1] ===
                       tab?.href?.split('/')[1]) &&
-                    'text-neutral-800'
+                    'text-white'
                 )}
               >
                 {(router.pathname === tab?.href ||
@@ -87,7 +87,7 @@ const Navbar = () => {
                   <motion.div
                     layoutId="highlight"
                     className={clsx(
-                      'absolute inset-0 bg-yellow-300 rounded-md'
+                      'absolute inset-0 bg-neutral-900 rounded-md'
                     )}
                   />
                 )}

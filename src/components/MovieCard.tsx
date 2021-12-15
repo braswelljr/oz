@@ -47,14 +47,14 @@ const Movie = ({ movie, id }: MovieProps) => {
       </div>
       <div className="px-1 py-2 bg-yellow-50">
         <div className="flex items-center space-x-2">
-          <HiStar className="w-auto h-5 text-yellow-400" />
+          <HiStar className="w-auto h-5 text-amber-400" />
           <span className="text-sm font-bold">{movie?.vote_average}</span>
         </div>
         <h3 className="text-sm font-black line-clamp-1">
           {movie?.name ?? movie?.title}
         </h3>
         <div className="">
-          <span className="px-1 text-xs font-bold text-neutral-600 bg-yellow-200 rounded">
+          <span className="px-2 py-0.5 text-xs font-bold rounded bg-neutral-300 text-neutral-700">
             {movie?.media_type}
           </span>
         </div>

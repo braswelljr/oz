@@ -4,7 +4,7 @@ import useSWR from 'swr'
 import { trending, image as imageUrl } from '@/configs/urls'
 import useStore from '@/store/store'
 import shallow from 'zustand/shallow'
-import { HiChevronLeft, HiChevronRight, HiStar } from 'react-icons/hi'
+import { HiStar } from 'react-icons/hi'
 import clsx from 'clsx'
 import { Swiper, SwiperSlide } from 'swiper/react'
 // styles
@@ -39,7 +39,7 @@ const Home = () => {
   // trending data fetch
   const { data: trendData, error: trendError } = useSWR(
     [
-      `${trending}/all/week?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}`,
+      `${trending}/all/day?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}`,
       page
     ],
     url => fetch(url).then(res => res.json()),
@@ -83,7 +83,7 @@ const Home = () => {
             trends.length > 0 &&
             trends.map((trend: any) => (
               <SwiperSlide key={trend?.id}>
-                <div className="w-full h-[650px] relative">
+                <div className="w-full h-[650px] relative aspect-1">
                   <Image
                     src={`${imageUrl}/original/${trend.backdrop_path}`}
                     alt={trend.title ?? trend.name ?? trend.original_title}
@@ -116,8 +116,8 @@ const Home = () => {
       </header>
       <main className={clsx('py-10')}>
         {/* Popular section */}
-        <section className="py-7">
-          <h3 className="mx-4 text-lg font-black text-neutral-600 lg:text-xl">
+        <section className="">
+          <h3 className="mx-4 text-xl font-black text-neutral-900 lg:text-2xl">
             Popular
           </h3>
           <section className="py-3">

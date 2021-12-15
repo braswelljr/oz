@@ -6,7 +6,7 @@ import MainLayout from '@/layouts/MainLayout'
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <Fragment>
+    <>
       <Head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -16,19 +16,17 @@ function App({ Component, pageProps }: AppProps) {
         />
         <meta name="description" content="Description" />
         <meta name="keywords" content="Keywords" />
-        <title>OZ</title>
+        <title>oz</title>
         <link rel="manifest" href="/manifest.json" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link href="/logo192.png" rel="icon" type="image/png" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#317EFB" />
+        <link rel="icon" href="/oz.png" type="image/png" />
       </Head>
-      <Fragment>
+      <>
         <MainLayout>
           <Component {...pageProps} />
         </MainLayout>
-      </Fragment>
-    </Fragment>
+      </>
+    </>
   )
 }
 
