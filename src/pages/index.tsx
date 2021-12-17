@@ -13,7 +13,8 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Navigation, Autoplay } from 'swiper'
-import MovieCard, { MovieProps } from '@/components/MovieCard'
+import MovieCard from '@/components/MovieCard'
+import { MovieProps } from '@/store/types'
 
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation])
@@ -39,7 +40,7 @@ const Home = () => {
   // trending data fetch
   const { data: trendData, error: trendError } = useSWR(
     [
-      `${trending}/all/day?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}`,
+      `${trending}/all/day?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}include_video=true&include_adult=true`,
       page
     ],
     url => fetch(url).then(res => res.json()),
@@ -98,9 +99,9 @@ const Home = () => {
                           <span className={clsx('')}>
                             {trend.title ?? trend.name ?? trend.original_title}
                           </span>{' '}
-                          <span className="inline-flex items-center px-4 text-sm text-white bg-amber-700 bg-opacity-80 rounded-2xl">
+                          <span className="inline-flex ml-1 items-center px-1.5 space-x-1 text-sm text-white rounded-sm bg-amber-700 bg-opacity-80">
                             <HiStar className="w-auto h-4 text-yellow-300" />
-                            <h4 className="">{trend.vote_average}</h4>
+                            <span className="">{trend.vote_average}</span>
                           </span>
                         </h1>
                       </div>

@@ -14,6 +14,7 @@ const Discover = () => {
     state => [state.discovery, state.setDiscovery],
     shallow
   )
+
   const { data, error } = useSWR(
     [
       `${discover}/${type}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}&include_adult=${explicit}&include_video=true`,
@@ -71,6 +72,11 @@ const Discover = () => {
             }}
           />
         </div>
+      </section>
+      <section className="flex py-4 gap-5 px-10">
+        <div className="bg-yellow-500 w-28 md:w-48 h-28 md:h-48"></div>
+        <div className="bg-stone-900 w-28 md:w-48 h-28 md:h-48 md:hidden"></div>
+        <div className="bg-sky-500 w-28 md:w-48 h-28 md:h-48 sm:hidden"></div>
       </section>
     </main>
   )

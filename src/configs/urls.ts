@@ -72,3 +72,14 @@ export const search = 'https://api.themoviedb.org/3/search'
  | tv          | Discover tv series     |
  */
 export const discover = 'https://api.themoviedb.org/3/discover'
+
+/**
+ * Genre (movie | tv series)
+ * https://api.themoviedb.org/3/genre/<<type>>/list
+ *
+ * | Type         |
+ * :-------------:|
+ * | movie        |
+ * | tv           |
+ */
+export const genre = 'https://api.themoviedb.org/3/genre'

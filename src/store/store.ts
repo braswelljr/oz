@@ -1,20 +1,21 @@
 import create, { SetState } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { MovieProps } from '@/components/MovieCard'
-
-type State = {
-  trends: MovieProps[]
-  setTrends: (state: MovieProps[]) => void
-  discovery: MovieProps[]
-  setDiscovery: (state: MovieProps[]) => void
-}
+import { State, MovieProps, Genre } from '@/store/types'
 
 const useStore = create<State>(
   devtools((set: SetState<State>) => ({
     trends: [],
-    setTrends: (state: any[]) => set({ trends: state }),
+    setTrends: (param: MovieProps[]) => set({ trends: param }),
     discovery: [],
-    setDiscovery: (state: any[]) => set({ discovery: state })
+    setDiscovery: (param: MovieProps[]) => set({ discovery: param }),
+    genres: {
+      movie: [],
+      tv: []
+    },
+    setMovieGenre: (param: Genre[]) =>
+      set((state: State) => ({ genres: { ...state.genres, movie: param } })),
+    setTvGenre: (param: Genre[]) =>
+      set((state: State) => ({ genres: { ...state.genres, tv: param } }))
   }))
 )
 

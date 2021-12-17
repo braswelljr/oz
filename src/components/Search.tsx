@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { HiSearch } from 'react-icons/hi'
+import { HiSearch, HiStar } from 'react-icons/hi'
 import clsx from 'clsx'
 import useSWR from 'swr'
 import { search, image as imageUrl } from '@/configs/urls'
@@ -62,7 +62,7 @@ const Search = () => {
   const { data, error } = useSWR(
     searchQuery.length > 0
       ? [
-          `${search}/${mediaType}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${searchQuery}`,
+          `${search}/${mediaType}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${searchQuery}&include_adult=true`,
           searchQuery,
           mediaType
         ]
@@ -132,10 +132,10 @@ const Search = () => {
       </div>
       {!open && (
         <>
-          <div className="fixed inset-0 md:px-10 lg:px-20 xl:px-30 min-h-[30vh] overflow-y-auto bg-neutral-100 z-[6] space-y-4 top-0 p-5 pt-28">
+          <div className="fixed inset-0 md:px-10 lg:px-20 xl:px-30 min-h-[30vh] overflow-y-auto bg-white z-[6] space-y-4 top-0 p-5 pt-[5.5rem]">
             {Array.isArray(searchResult) && searchResult?.length > 0 ? (
               <>
-                <div className="fixed inset-x-0 max-w-4xl rounded mx-auto bg-white top-20 z-[3]">
+                <div className="fixed inset-x-0 max-w-4xl rounded sm:mx-auto mx-5 bg-stone-200 top-[4.5rem] z-[3]">
                   <Tabs
                     tabs={{
                       multi: (
@@ -168,18 +168,18 @@ const Search = () => {
                 </div>
                 <div
                   className={clsx(
-                    'space-y-5 relative md:px-10 lg:px-20 xl:px-30 overflow-y-auto'
+                    'relative md:px-10 lg:px-20 xl:px-30 divide-y divide-gray-300 bg-white overflow-y-auto'
                   )}
                 >
                   {searchResult.map((card: any, i: number) => (
                     <LinkWithRef
                       href={'/'}
                       className={clsx(
-                        'flex space-x-2 bg-neutral-50 rounded-md overflow-hidden shadow-sm'
+                        'flex space-x-2 sm:space-x-4 py-3 px-4 relative'
                       )}
                       key={i}
                     >
-                      <div className="relative w-16 h-24 bg-black">
+                      <div className="relative overflow-hidden z-0 w-[4.5rem] h-28 bg-black rounded">
                         <Image
                           src={`${imageUrl}/original/${
                             card?.poster_path ??
@@ -191,26 +191,38 @@ const Search = () => {
                           }
                           layout="fill"
                           objectFit="cover"
-                          className="relative w-24 h-36"
+                          className="relative w-24 h-36 aspect-ratio-1/1"
                         />
                       </div>
-                      <div className="flex flex-col justify-between py-2">
+                      <div className="flex flex-col justify-between py-1 w-[70%] sm:w-full grow-0">
                         <div className="space-y-2 text-sm">
-                          <h2 className="font-bold text-neutral-700">
+                          <h2 className="font-semibold text-gray-900 truncate w-[80%] sm:w-full">
                             {card?.title ?? card?.name ?? card?.original_title}
                           </h2>
-                          <div className="text-xs">
-                            {card?.release_date ?? card?.first_air_date}
+                          <div className="flex space-x-2 text-sm text-gray-600 leading-6 font-medium items-center">
+                            {card?.media_type !== undefined && (
+                              <div className="px-1.5 ring-1 min-w-[2.5rem] text-center py-1 text-xs ring-gray-200 rounded">
+                                {card?.media_type}
+                              </div>
+                            )}
+                            <div className="">
+                              {(
+                                card?.release_date ??
+                                card?.first_air_date ??
+                                ''
+                              ).slice(0, 4)}
+                            </div>
                           </div>
                         </div>
-                        <div className="">
-                          {card?.media_type !== undefined && (
-                            <span className="inline px-1 text-xs text-neutral-600 bg-yellow-200 rounded-full">
-                              {card?.media_type}
-                            </span>
-                          )}
-                        </div>
                       </div>
+                      {card?.vote_average !== undefined &&
+                        card?.vote_average > 0 && (
+                          <dl className="top-3 absolute right-4 flex items-center text-xs text-gray-600 leading-6 font-medium">
+                            <span className="sr-only">Star rating</span>
+                            <HiStar className="w-auto h-5 text-amber-400" />
+                            <span>{card?.vote_average}</span>
+                          </dl>
+                        )}
                     </LinkWithRef>
                   ))}
                 </div>
