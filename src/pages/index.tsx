@@ -14,7 +14,7 @@ import 'swiper/css/navigation'
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Navigation, Autoplay } from 'swiper'
 import MovieCard from '@/components/MovieCard'
-import { MovieProps } from '@/store/types'
+import { MovieType } from '@/store/types'
 
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation])
@@ -91,6 +91,7 @@ const Home = () => {
                     layout="fill"
                     objectFit="cover"
                     className="relative"
+                    priority={true}
                   />
                   <div className="absolute inset-0 bg-neutral-700 bg-opacity-60 z-[1] grid">
                     <div className="w-auto max-w-3xl px-6 mx-auto -mb-32 xl:max-w-5xl place-self-center">
@@ -166,7 +167,7 @@ const Home = () => {
                 >
                   {Array.isArray(trends) &&
                     trends.length > 0 &&
-                    trends.map((movie: MovieProps, id: number) => (
+                    trends.map((movie: MovieType, id: number) => (
                       <SwiperSlide key={movie?.id}>
                         <MovieCard id={id} movie={movie} />
                       </SwiperSlide>

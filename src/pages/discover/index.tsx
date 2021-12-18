@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import clsx from 'clsx'
 import { discover } from '@/configs/urls'
 import Tabs from '@/components/Tabs'
 import useStore from '@/store/store'
 import shallow from 'zustand/shallow'
+import { MovieType } from '@/store/types'
+import Image from 'next/image'
+import { image } from '@/configs/urls'
 
 const Discover = () => {
   const [page, setPage] = useState(1)
@@ -14,6 +17,7 @@ const Discover = () => {
     state => [state.discovery, state.setDiscovery],
     shallow
   )
+  const [discoveryHead, setDiscoveryHead] = useState<MovieType[]>([])
 
   const { data, error } = useSWR(
     [
@@ -26,9 +30,18 @@ const Discover = () => {
     { refreshInterval: 60000, shouldRetryOnError: true }
   )
   // set discovery data
-  if (!error && data !== undefined) {
-    setDiscovery(data?.results)
-  }
+  useEffect(() => {
+    if (!error && data !== undefined) {
+      setDiscovery(data?.results)
+    }
+  }, [error, data, setDiscovery])
+
+  // set discovery header images
+  useEffect(() => {
+    if (discovery.length > 0) {
+      setDiscoveryHead(discovery.sort(() => 0.5 - Math.random()).slice(0, 3))
+    }
+  }, [discovery])
 
   return (
     <main className="min-h-screen text-neutral-800">
@@ -73,10 +86,30 @@ const Discover = () => {
           />
         </div>
       </section>
-      <section className="flex py-4 gap-5 px-10">
-        <div className="bg-yellow-500 w-28 md:w-48 h-28 md:h-48"></div>
-        <div className="bg-stone-900 w-28 md:w-48 h-28 md:h-48 md:hidden"></div>
-        <div className="bg-sky-500 w-28 md:w-48 h-28 md:h-48 sm:hidden"></div>
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 py-4 gap-3 px-4">
+        {discoveryHead.length > 0 &&
+          discoveryHead.map((movie: MovieType, i: number) => (
+            <div
+              key={movie.id}
+              className={clsx(
+                'relative h-72 bg-gradient-to-br from-stone-900 to-neutral-400 animate-moveGradientBg [background-size:200%_200%]',
+                {
+                  hidden: i !== 0,
+                  'sm:block': i < 2,
+                  'md:block': i <= 2
+                }
+              )}
+            >
+              <Image
+                src={`${image}/original/${movie.backdrop_path}`}
+                alt={movie?.name ?? movie?.title}
+                layout="fill"
+                objectFit="cover"
+                className="absolute inset-0 object-cover w-full h-full"
+                priority={true}
+              />
+            </div>
+          ))}
       </section>
     </main>
   )

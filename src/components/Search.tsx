@@ -9,14 +9,22 @@ import Tabs from '@/components/Tabs'
 import { GoGlobe } from 'react-icons/go'
 import { MdOndemandVideo } from 'react-icons/md'
 import { IoIosPeople } from 'react-icons/io'
+import useStore from '@/store/store'
+import { MovieProps, Genre } from '@/store/types'
 
-const Search = () => {
+const Search = ({
+  open,
+  setOpen
+}: {
+  open: boolean
+  setOpen: (open: boolean) => void
+}) => {
   const searchInputRef = useRef<HTMLInputElement>(null)
   const searchCloseRef = useRef<HTMLButtonElement>(null)
-  const [open, setOpen] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
-  const [searchResult, setSearchResult] = useState([])
+  const [searchResult, setSearchResult] = useState<MovieProps[]>([])
   const [mediaType, setMediaType] = useState('multi')
+  const genres = useStore(state => state.genres)
 
   // set focus action
   useEffect(() => {
@@ -33,7 +41,7 @@ const Search = () => {
     return () => {
       window.removeEventListener('keydown', onKeyDown)
     }
-  }, [open])
+  }, [open, setOpen])
 
   useEffect(() => {
     if (open === true) {
@@ -78,17 +86,6 @@ const Search = () => {
 
   return (
     <>
-      <nav className="fixed inset-x-0 top-0 flex justify-end items-center px-4 py-3 text-neutral-400 bg-transparent z-[5] md:px-10 lg:px-20 xl:px-30">
-        <div className="flex space-x-6 font-bold">
-          <button
-            type="button"
-            className="fixed top-3 right-3 text-white z-[5] bg-neutral-800 bg-opacity-80 p-1 rounded transform transition-all duration-300"
-            onClick={() => setOpen(false)}
-          >
-            <HiSearch className="w-auto h-6" />
-          </button>
-        </div>
-      </nav>
       <div
         className={clsx(
           'flex fixed inset-x-0 z-10 transform transition-all duration-200 bg-white shadow mx-auto rounded py-1 sm:px-6 lg:px-20 px-4',
@@ -171,7 +168,7 @@ const Search = () => {
                     'relative md:px-10 lg:px-20 xl:px-30 divide-y divide-gray-300 bg-white overflow-y-auto'
                   )}
                 >
-                  {searchResult.map((card: any, i: number) => (
+                  {searchResult.map((card: MovieProps, i: number) => (
                     <LinkWithRef
                       href={'/'}
                       className={clsx(
@@ -192,6 +189,7 @@ const Search = () => {
                           layout="fill"
                           objectFit="cover"
                           className="relative w-24 h-36 aspect-ratio-1/1"
+                          priority={true}
                         />
                       </div>
                       <div className="flex flex-col justify-between py-1 w-[70%] sm:w-full grow-0">
@@ -214,6 +212,30 @@ const Search = () => {
                             </div>
                           </div>
                         </div>
+                        {/* genres */}
+                        {(card?.media_type === 'tv' ||
+                          card?.media_type === 'movie') &&
+                          (genres.tv.length > 0 || genres.movie.length > 0) &&
+                          card?.genre_ids?.map(
+                            (id, i) =>
+                              i === 0 && (
+                                <span
+                                  key={i}
+                                  className="text-xs text-gray-500 font-semibold truncate"
+                                >
+                                  {
+                                    (
+                                      genres.tv.find(
+                                        (g: Genre) => g.id === id
+                                      ) ??
+                                      genres.movie.find(
+                                        (g: Genre) => g.id === id
+                                      )
+                                    )?.name
+                                  }
+                                </span>
+                              )
+                          )}
                       </div>
                       {card?.vote_average !== undefined &&
                         card?.vote_average > 0 && (

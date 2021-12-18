@@ -3,9 +3,9 @@ import Image from 'next/image'
 import { image } from '@/configs/urls'
 import { HiStar } from 'react-icons/hi'
 import clsx from 'clsx'
-import { MovieProps } from '@/store/types'
+import { MovieType } from '@/store/types'
 
-const Movie = ({ movie, id }: MovieProps) => {
+const Movie = ({ movie, id }: { movie: MovieType; id: number }) => {
   return (
     <div
       className={clsx('overflow-hidden bg-stone-100 mr-3', id == 0 && 'ml-3')}
@@ -18,6 +18,7 @@ const Movie = ({ movie, id }: MovieProps) => {
           layout="fill"
           objectFit="cover"
           className="absolute top-0 left-0 object-cover w-full h-full"
+          priority={true}
         />
       </div>
       <div className="px-2 py-2">

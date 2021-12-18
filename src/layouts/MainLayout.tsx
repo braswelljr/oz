@@ -1,16 +1,15 @@
-import { ReactChild, ReactChildren } from 'react'
+import { useState } from 'react'
 import Search from '@/components/Search'
 import Navbar from '@/components/Navbar'
+import { MainLayoutType } from '@/store/types'
 
-interface Props {
-  children: ReactChild | ReactChild[] | ReactChildren | ReactChildren[]
-}
+const MainLayout = ({ children }: MainLayoutType) => {
+  const [open, setOpen] = useState<boolean>(true)
 
-const MainLayout = ({ children }: Props) => {
   return (
     <>
-      <Search />
-      <Navbar />
+      <Search open={open} setOpen={setOpen} />
+      <Navbar open={open} setOpen={setOpen} />
       {children}
     </>
   )

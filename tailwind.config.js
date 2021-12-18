@@ -16,8 +16,22 @@ module.exports = {
     },
     extend: {
       backgroundImage: {},
-      animation: {},
-      keyframes: {}
+      animation: {
+        moveGradientBg: 'moveGradientBg 10s ease infinite alternate'
+      },
+      keyframes: {
+        moveGradientBg: {
+          from: {
+            backgroundPosition: '0 50%'
+          },
+          '50%': {
+            backgroundPosition: '0 50%'
+          },
+          to: {
+            backgroundPosition: '0 50%'
+          }
+        }
+      }
     }
   },
   variants: {
