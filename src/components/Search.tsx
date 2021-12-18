@@ -10,7 +10,7 @@ import { GoGlobe } from 'react-icons/go'
 import { MdOndemandVideo } from 'react-icons/md'
 import { IoIosPeople } from 'react-icons/io'
 import useStore from '@/store/store'
-import { MovieProps, Genre } from '@/store/types'
+import { MovieType, Genre } from '@/store/types'
 
 const Search = ({
   open,
@@ -22,7 +22,7 @@ const Search = ({
   const searchInputRef = useRef<HTMLInputElement>(null)
   const searchCloseRef = useRef<HTMLButtonElement>(null)
   const [searchQuery, setSearchQuery] = useState('')
-  const [searchResult, setSearchResult] = useState<MovieProps[]>([])
+  const [searchResult, setSearchResult] = useState<MovieType[]>([])
   const [mediaType, setMediaType] = useState('multi')
   const genres = useStore(state => state.genres)
 
@@ -168,7 +168,7 @@ const Search = ({
                     'relative md:px-10 lg:px-20 xl:px-30 divide-y divide-gray-300 bg-white overflow-y-auto'
                   )}
                 >
-                  {searchResult.map((card: MovieProps, i: number) => (
+                  {searchResult.map((card: MovieType, i: number) => (
                     <LinkWithRef
                       href={'/'}
                       className={clsx(
