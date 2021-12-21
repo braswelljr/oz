@@ -132,7 +132,7 @@ const Search = ({
           <div className="fixed inset-0 md:px-10 lg:px-20 xl:px-30 min-h-[30vh] overflow-y-auto bg-white z-[6] space-y-4 top-0 p-5 pt-[5.5rem]">
             {Array.isArray(searchResult) && searchResult?.length > 0 ? (
               <>
-                <div className="fixed inset-x-0 max-w-4xl rounded sm:mx-auto mx-5 bg-stone-200 top-[4.5rem] z-[3]">
+                <div className="fixed inset-x-0 max-w-4xl rounded sm:mx-auto mx-5 bg-yellow-200 top-[4.5rem] z-[3]">
                   <Tabs
                     tabs={{
                       multi: (

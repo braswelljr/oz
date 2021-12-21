@@ -84,7 +84,7 @@ const Home = () => {
             trends.length > 0 &&
             trends.map((trend: any) => (
               <SwiperSlide key={trend?.id}>
-                <div className="w-full h-[650px] relative aspect-1">
+                <div className="w-full h-[450px] md:h-[650px] relative aspect-1">
                   <Image
                     src={`${imageUrl}/original/${trend.backdrop_path}`}
                     alt={trend.title ?? trend.name ?? trend.original_title}
