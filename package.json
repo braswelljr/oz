@@ -14,7 +14,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/line-clamp": "^0.4.0",
     "autoprefixer": "^10.4.0",
-    "clsx": "^1.1.1",
+    "clsx": "^2.0.0",
     "file-loader": "^6.2.0",
     "framer-motion": "^10.2.3",
     "husky": "^8.0.0",
